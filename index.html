@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>GiftNest - Curated Gifting Store</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #fdf8f5;
+            color: #3d242a;
+        }
+
+        header {
+            background: #4a2531;
+            color: white;
+            padding: 22px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h2 {
+            letter-spacing: 2px;
+        }
+
+        header span {
+            color: #f3c19d;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .hero {
+            padding: 65px 8%;
+            background: #f3e4dc;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            max-width: 500px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            color: #6b5258;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background: #6d3849;
+            color: white;
+            border: none;
+            padding: 11px 18px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background: #3d1d27;
+        }
+
+        .gifts {
+            padding: 40px 8%;
+        }
+
+        .gifts h2 {
+            margin-bottom: 20px;
+        }
+
+        #search {
+            padding: 12px;
+            width: 100%;
+            max-width: 350px;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+            margin-bottom: 25px;
+        }
+
+        .gift-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 22px;
+        }
+
+        .gift {
+            background: white;
+            padding: 15px;
+            border-radius: 9px;
+            box-shadow: 0 3px 12px #00000010;
+        }
+
+        .cover {
+            height: 170px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            background: #f8ebe4;
+            border: 1px dashed rgba(61, 36, 42, 0.16);
+            margin-bottom: 15px;
+            border-radius: 5px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .cover .emoji {
+            font-size: 52px;
+            line-height: 1;
+        }
+
+        .cover .art-label {
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: #4a2531;
+        }
+
+        .gift h3 {
+            margin-bottom: 8px;
+        }
+
+        .gift p {
+            color: #8a6d74;
+            margin-bottom: 12px;
+        }
+
+        .gift button {
+            margin: 4px 2px 0 0;
+            padding: 9px;
+        }
+
+        #details {
+            display: none;
+            margin: 30px 8%;
+            padding: 25px;
+            background: #f3e4dc;
+            border-radius: 8px;
+        }
+
+        #customizer {
+            display: none;
+            margin: 30px 8%;
+            padding: 25px;
+            background: white;
+            border-radius: 8px;
+        }
+
+        #customizer p {
+            line-height: 1.8;
+            margin: 15px 0;
+        }
+
+        footer {
+            background: #4a2531;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        @media(max-width: 600px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav a {
+                margin: 5px;
+            }
+
+            .hero h1 {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>Gift<span>Nest.</span></h2>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#collection">Gifts</a>
+        <a href="#customizer">Gift Note</a>
+    </nav>
+</header>
+
+<section class="hero" id="home">
+    <h1>Find thoughtful gifts. Celebrate every moment.</h1>
+
+    <p>Your personal space for discovering and customising memorable gifts.</p>
+
+    <button onclick="showGifts()">Explore Collection</button>
+</section>
+
+<section class="gifts" id="collection">
+
+    <h2>Explore Our Collection</h2>
+
+    <input type="text" id="search"
+        placeholder="Search for a gift..."
+        onkeyup="searchGifts()">
+
+    <div class="gift-container" id="giftContainer">
+
+        <div class="gift" data-name="festive sweet hamper">
+            <div class="cover" data-label="Festive Box" data-emoji="🎁" data-bg="#fbe6d4"></div>
+            <h3>Festive Sweet Hamper</h3>
+            <p>₹1,299 • Festive Box</p>
+            <button onclick="showDetails('Festive Sweet Hamper', 'An assorted box of artisanal sweets, roasted dry fruits, and handcrafted chocolates.')">Details</button>
+            <button onclick="addGift('Festive Sweet Hamper')">+ Add</button>
+        </div>
+
+        <div class="gift" data-name="aroma soy candles">
+            <div class="cover" data-label="Home & Wellness" data-emoji="🕯️" data-bg="#fce8ec"></div>
+            <h3>Aroma Soy Candles</h3>
+            <p>₹799 • Home & Wellness</p>
+            <button onclick="showDetails('Aroma Soy Candles', 'A set of three hand-poured lavender, vanilla, and sandalwood scented soy candles.')">Details</button>
+            <button onclick="addGift('Aroma Soy Candles')">+ Add</button>
+        </div>
+
+        <div class="gift" data-name="custom ceramic mug">
+            <div class="cover" data-label="Personalised" data-emoji="☕" data-bg="#efe5dc"></div>
+            <h3>Custom Ceramic Mug</h3>
+            <p>₹499 • Personalised</p>
+            <button onclick="showDetails('Custom Ceramic Mug', 'A matte-finish stoneware mug with custom name engraving and gift wrap.')">Details</button>
+            <button onclick="addGift('Custom Ceramic Mug')">+ Add</button>
+        </div>
+
+    </div>
+
+    <p id="giftBag" style="margin-top:25px;">
+        My Gift Bag: 0 items
+    </p>
+
+</section>
+
+<section id="details">
+    <h2 id="giftTitle"></h2>
+    <p id="giftDescription"></p>
+    <br>
+    <button onclick="openCustomizer()">Add Gift Note</button>
+    <button onclick="closeDetails()">Close</button>
+</section>
+
+<section id="customizer">
+
+    <h2>Gift Note Preview</h2>
+
+    <div>
+        <button onclick="changeSize(1)">A+</button>
+        <button onclick="changeSize(-1)">A-</button>
+    </div>
+
+    <p id="noteText">
+        Welcome to GiftNest!
+        Every thoughtful gift carries warmth,
+        love, and lasting memories.
+        Preview your greeting card message right here.
+    </p>
+
+    <button onclick="closeCustomizer()">Close Preview</button>
+
+</section>
+
+<footer>
+    <p>© 2026 GiftNest | Wrap. Share. Celebrate.</p>
+</footer>
+
+<script>
+
+    let selectedGift = "";
+    let count = 0;
+    let fontSize = 18;
+
+    document.querySelectorAll(".cover").forEach((card) => {
+        if (card.dataset.bg) {
+            card.style.background = card.dataset.bg;
+        }
+        card.innerHTML = `<span class="emoji">${card.dataset.emoji || "🎁"}</span><span class="art-label">${card.dataset.label || ""}</span>`;
+    });
+
+    function showGifts() {
+        document.getElementById("collection").scrollIntoView();
+    }
+
+    function searchGifts() {
+        let search = document.getElementById("search").value.toLowerCase();
+
+        let gifts = document.querySelectorAll(".gift");
+
+        gifts.forEach(function(gift) {
+            let name = gift.getAttribute("data-name");
+
+            if(name.includes(search)) {
+                gift.style.display = "block";
+            } else {
+                gift.style.display = "none";
+            }
+        });
+    }
+
+    function showDetails(title, description) {
+        selectedGift = title;
+
+        document.getElementById("giftTitle").innerText = title;
+        document.getElementById("giftDescription").innerText = description;
+
+        document.getElementById("details").style.display = "block";
+
+        document.getElementById("details").scrollIntoView();
+    }
+
+    function closeDetails() {
+        document.getElementById("details").style.display = "none";
+    }
+
+    function addGift(name) {
+        count++;
+
+        document.getElementById("giftBag").innerText =
+            "My Gift Bag: " + count + " items";
+    }
+
+    function openCustomizer() {
+        document.getElementById("customizer").style.display = "block";
+
+        document.getElementById("noteText").innerText =
+            "Sending warm wishes with your " + selectedGift +
+            ". Wrapped with care by GiftNest!";
+
+        document.getElementById("customizer").scrollIntoView();
+    }
+
+    function changeSize(value) {
+        fontSize = fontSize + value;
+
+        document.getElementById("noteText").style.fontSize =
+            fontSize + "px";
+    }
+
+    function closeCustomizer() {
+        document.getElementById("customizer").style.display = "none";
+    }
+
+</script>
+
+</body>
+</html>
